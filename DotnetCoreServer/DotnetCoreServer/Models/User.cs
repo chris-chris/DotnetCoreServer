@@ -9,8 +9,8 @@ namespace DotnetCoreServer.Models
         public string FacebookUserID { get; set; }
         public string FacebookName { get; set; }
         public string FacebookPhotoURL { get; set; }
-
         public int Point { get; set;}
+        public string AccessToken { get; set; }
         public DateTime CreatedAt { get; set; }
 
     }

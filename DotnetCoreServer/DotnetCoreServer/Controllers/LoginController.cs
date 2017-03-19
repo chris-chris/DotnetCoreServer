@@ -37,6 +37,9 @@ namespace DotnetCoreServer.Controllers
 
             } else { // 회원가입 해야함
                 
+                string AccessToken = Guid.NewGuid().ToString();
+
+                requestUser.AccessToken = AccessToken;
                 UserDao.InsertUser(requestUser);
                 user = UserDao.FindUserByFUID(requestUser.FacebookUserID);
                 result.Data = user;

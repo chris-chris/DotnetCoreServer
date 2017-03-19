@@ -11,7 +11,7 @@ namespace DotnetCoreServer.Models
             using (MySqlConnection conn = DB.GetDB())
             {   
                 string query = String.Format(
-                    "SELECT UserID, FacebookUserID, FacebookName, FacebookPhotoURL, Point, CreatedAt FROM tb_user WHERE FacebookUserID = '{0}'",
+                    "SELECT UserID, FacebookUserID, FacebookName, FacebookPhotoURL, Point, CreatedAt, AccessToken FROM tb_user WHERE FacebookUserID = '{0}'",
                      FacebookUserID);
 
                 Console.WriteLine(query);
@@ -27,6 +27,7 @@ namespace DotnetCoreServer.Models
                         user.FacebookPhotoURL = reader.GetString(3);
                         user.Point = reader.GetInt32(4);
                         user.CreatedAt = reader.GetDateTime(5);
+                        user.AccessToken = reader.GetString(6);
                         return user;
                     }
                 }
@@ -39,7 +40,7 @@ namespace DotnetCoreServer.Models
             using (MySqlConnection conn = DB.GetDB())
             {   
                 string query = String.Format(
-                    "SELECT UserID, FacebookUserID, FacebookName, FacebookPhotoURL, Point  FROM tb_user WHERE UserID = {0}",
+                    "SELECT UserID, FacebookUserID, FacebookName, FacebookPhotoURL, Point, AccessToken  FROM tb_user WHERE UserID = {0}",
                      UserID);
 
                 Console.WriteLine(query);
@@ -54,6 +55,7 @@ namespace DotnetCoreServer.Models
                         user.FacebookName = reader.GetString(2);
                         user.FacebookPhotoURL = reader.GetString(3);
                         user.Point = reader.GetInt32(4);
+                        user.AccessToken = reader.GetString(5);
                     }
                 }
             }
@@ -61,11 +63,12 @@ namespace DotnetCoreServer.Models
         }
 
         public static User InsertUser(User user){
+            
             using (MySqlConnection conn = DB.GetDB())
             {   
                 string query = String.Format(
-                    "INSERT INTO tb_user (FacebookUserID, FacebookName, FacebookPhotoURL, Point, CreatedAt) VALUES ('{0}','{1}','{2}',{3}, now())",
-                     user.FacebookUserID, user.FacebookName, user.FacebookPhotoURL, 0);
+                    "INSERT INTO tb_user (FacebookUserID, FacebookName, FacebookPhotoURL, Point, AccessToken, CreatedAt) VALUES ('{0}','{1}','{2}',{3}, '{4}', now())",
+                     user.FacebookUserID, user.FacebookName, user.FacebookPhotoURL, 0, user.AccessToken);
 
                 Console.WriteLine(query);
 
